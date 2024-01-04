@@ -4,6 +4,7 @@ var attendContainer = document.querySelector(".attend");
 var allCards = document.querySelectorAll(".attend--card");
 var nope = document.getElementById("nope");
 var like = document.getElementById("like");
+var skip = document.getElementById("skip");
 
 function initCards(card, index) {
   var newCards = document.querySelectorAll(".attend--card:not(.removed)");
@@ -21,8 +22,8 @@ function initCards(card, index) {
     handleAllCardsSwiped();
   }
 }
-
 initCards();
+
 allCards.forEach(function (el) {
   var hammertime = new Hammer(el);
 
@@ -88,38 +89,56 @@ allCards.forEach(function (el) {
   });
 });
 
-function createButtonListener(like) {
+// SKIP card
+function skipCard() {
+  var cards = document.querySelectorAll(".attend--card:not(.removed)");
+
+  if (!cards.length) return;
+
+  var card = cards[0];
+  card.classList.add("removed");
+  card.style.transform = "translate(0, -1000px)";
+
+  initCards();
+}
+
+function createButtonListener(like, skip) {
   return function (event) {
-    var cards = document.querySelectorAll(".attend--card:not(.removed)");
     var moveOutWidth = document.body.clientWidth * 1.5;
 
-    if (!cards.length) return false;
-
-    var card = cards[0];
-
-    card.classList.add("removed");
-
-    if (like) {
-      card.style.transform =
-        "translate(" + moveOutWidth + "px, -100px) rotate(-30deg)";
+    // Skip cards
+    if (skip) {
+      skipCard();
     } else {
-      card.style.transform =
-        "translate(-" + moveOutWidth + "px, -100px) rotate(30deg)";
+      var cards = document.querySelectorAll(".attend--card:not(.removed)");
+
+      if (!cards.length) return false;
+
+      var card = cards[0];
+
+      card.classList.add("removed");
+
+      if (like) {
+        card.style.transform =
+          "translate(" + moveOutWidth + "px, -100px) rotate(-30deg)";
+      } else {
+        card.style.transform =
+          "translate(-" + moveOutWidth + "px, -100px) rotate(30deg)";
+      }
+
+      initCards();
     }
-
-    initCards();
-
     event.preventDefault();
   };
 }
 
 var nopeListener = createButtonListener(false);
 var likeListener = createButtonListener(true);
+var skipListener = createButtonListener(false, true);
 
 nope.addEventListener("click", nopeListener);
 like.addEventListener("click", likeListener);
-
-//
+skip.addEventListener("click", skipListener);
 
 var undo = document.getElementById("undo");
 var removedCardsStack = [];
@@ -128,7 +147,6 @@ undo.addEventListener("click", function (event) {
   var removedCards = document.querySelectorAll(".attend--card.removed");
   if (removedCards.length > 0) {
     for (var i = removedCards.length - 1; i >= 0; i--) {
-      // var removedCard = removedCards[i];
       var removedCard = removedCards[removedCards.length - 1];
       removedCard.classList.remove("removed");
       removedCard.style.transform = "";
@@ -160,3 +178,20 @@ function handleAllCardsSwiped() {
   var logo = document.getElementById("logo");
   logo.classList.add("increased-size");
 }
+
+function showSkipped() {
+  document.getElementById("skipped").style.display = "block";
+  // document.getElementById("showOpenPopupBtn").style.display = "none";
+}
+// Function to open the popup
+function openPopup() {
+  document.getElementById("popupOverlay").style.display = "flex";
+}
+
+// Function to close the popup
+function closePopup() {
+  document.getElementById("popupOverlay").style.display = "none";
+}
+
+// Event listener for the button click
+document.getElementById("skipped").addEventListener("click", openPopup);

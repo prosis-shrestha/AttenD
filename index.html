@@ -68,11 +68,22 @@
           </p>
         </div>
       </div>
-      <!-- <div class="thank-you">Thank you to attending the expo!</div> -->
       <div class="attend--buttons">
         <button id="nope"><i class="fa fa-remove"></i></button>
         <button id="undo"><i class="fa fa-undo"></i></button>
+        <button id="skipped" style="display: none">Skipped</button>
+        <button id="skip" onclick="showSkipped()">
+          <i class="fa fa-fast-forward"></i>
+        </button>
         <button id="like"><i class="fa fa-heart"></i></button>
+      </div>
+    </div>
+    <div class="overlay" id="popupOverlay">
+      <div class="popup">
+        <h3>These are your skipped cards</h3>
+        <p>Something like this garauna parcha hola</p>
+        <br />
+        <button onclick="closePopup()">Close</button>
       </div>
     </div>
     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
