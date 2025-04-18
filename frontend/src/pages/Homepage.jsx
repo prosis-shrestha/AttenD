@@ -18,7 +18,7 @@ const Homepage = () => {
             if (!userInfo?.id) return;
 
             try {
-                const response = await axios.get(`http://localhost:5000/api/users/get-unseen-stalls/${userInfo.id}`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/get-unseen-stalls/${userInfo.id}`);
                 setCards(response.data);
             } catch (err) {
                 console.error(err.message);
@@ -33,7 +33,7 @@ const Homepage = () => {
     const handleAuth = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.get(`http://localhost:5000/api/auth/get-user/${code}`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/get-user/${code}`);
             setUserInfo(response.data);
         } catch (err) {
             console.error(err.message);
@@ -59,7 +59,7 @@ const Homepage = () => {
         console.log(userInfo.id, stall_id, isLiked)
 
         try {
-            const response = await axios.post('http://localhost:5000/api/interactions/add-interaction', {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/interactions/add-interaction`, {
                 userId: userInfo.id,
                 stall_id,
                 isLiked,
@@ -99,7 +99,7 @@ const Homepage = () => {
 
             if (lastAction.direction !== 'skip') {
                 try {
-                    await axios.delete(`http://localhost:5000/api/interactions/remove-interaction/${userInfo.id}/${lastAction.card.id}`);
+                    await axios.delete(`${import.meta.env.VITE_API_URL}/api/interactions/remove-interaction/${userInfo.id}/${lastAction.card.id}`);
                     setCards([lastAction.card, ...cards]);
                     setHistory(remainingHistory);
                 } catch (error) {
@@ -138,7 +138,7 @@ const Homepage = () => {
 
         try {
             // Register the demo user
-            await axios.post('http://localhost:5000/api/users/add-users', demoUser);
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/users/add-users`, demoUser);
             setDemoCode(demoUser.code);
         } catch (err) {
             console.error("Error creating demo user:", err.message);

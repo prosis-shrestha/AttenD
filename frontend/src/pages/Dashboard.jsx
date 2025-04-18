@@ -33,7 +33,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchAllData = async () => {
             try {
-                const response = await fetch('http://localhost:5000/get-all-tables');
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/get-all-tables`);
                 const data = await response.json();
                 updateDashboardData(data);
             } catch (error) {
@@ -41,7 +41,7 @@ const Dashboard = () => {
             }
         };
 
-        const newSocket = io('http://localhost:5000');
+        const newSocket = io(import.meta.env.VITE_API_URL);
 
         newSocket.on('connect', () => {
             console.log('Connected to WebSocket server');

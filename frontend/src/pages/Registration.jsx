@@ -27,7 +27,7 @@ const Registration = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/api/users/add-users', newUser);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/add-users`, newUser);
             setUserData([...userData, response.data]);
         } catch (err) {
             console.error("Error during registration:", err.message);
