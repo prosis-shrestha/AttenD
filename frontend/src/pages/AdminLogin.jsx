@@ -13,6 +13,7 @@ const AdminLogin = () => {
         setLoading(true);
         setError("");
 
+
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/admin-login`, {
                 code: code
@@ -27,6 +28,7 @@ const AdminLogin = () => {
             }
         } catch (err) {
             console.error("Login error:", err);
+            // console.log(`${import.meta.env.VITE_API_URL}`)
             setError("Login failed. Please try again.");
         } finally {
             setLoading(false);
