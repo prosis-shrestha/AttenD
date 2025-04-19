@@ -42,6 +42,8 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
+# 🔥 COPY env file before build
+COPY .env.production .env.production
 COPY . .
 RUN npm run build
 
