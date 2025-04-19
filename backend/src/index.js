@@ -15,7 +15,7 @@ const interactionRoutes = require("./routes/interaction.routes");
 const stallRoutes = require("./routes/stall.routes");
 
 const corsOptions = {
-  origin: "*",
+  origin: `${process.env.FRONTEND_URL}`,
   methods: ["GET", "POST", "DELETE"],
   credentials: true,
 };
