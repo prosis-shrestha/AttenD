@@ -42,8 +42,10 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
-# 🔥 COPY env file before build
-COPY .env.production .env.production
+# 👇 Inject Railway env var into Docker build
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 COPY . .
 RUN npm run build
 
