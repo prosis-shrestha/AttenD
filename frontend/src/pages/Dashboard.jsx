@@ -42,7 +42,7 @@ const Dashboard = () => {
         };
 
         // const newSocket = io(import.meta.env.VITE_API_URL);
-        const newSocket = io('/');
+        const newSocket = io();
 
         newSocket.on('connect', () => {
             console.log('Connected to WebSocket server');
