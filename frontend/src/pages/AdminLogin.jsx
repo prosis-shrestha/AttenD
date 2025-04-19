@@ -30,7 +30,6 @@ const AdminLogin = () => {
             }
         } catch (err) {
             console.error("Login error:", err);
-            // console.log(`${import.meta.env.VITE_API_URL}`)
             setError("Login failed. Please try again.");
         } finally {
             setLoading(false);

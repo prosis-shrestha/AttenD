@@ -42,7 +42,6 @@ const Dashboard = () => {
         };
 
         const newSocket = io(import.meta.env.VITE_API_URL);
-        // const newSocket = io();
 
         newSocket.on('connect', () => {
             console.log('Connected to WebSocket server');
@@ -73,7 +72,6 @@ const Dashboard = () => {
         setUserData(data.users);
         setStallData(data.stalls);
         setInteractionData(data.interactions);
-        console.log(data.stalls);
         setSummaryStats({
             totalUsers: data.users.length,
             totalStalls: data.stalls.length,
