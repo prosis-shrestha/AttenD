@@ -13,7 +13,7 @@ import {
     CartesianGrid
 } from 'recharts';
 import io from "socket.io-client";
-
+import axios from 'axios';
 
 const Dashboard = () => {
     const [userData, setUserData] = useState([]);
@@ -33,9 +33,8 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchAllData = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/get-all-tables`);
-                const data = await response.json();
-                updateDashboardData(data);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/get-all-tables`);
+                updateDashboardData(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
