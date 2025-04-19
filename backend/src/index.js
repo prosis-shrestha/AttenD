@@ -22,7 +22,7 @@ const stallRoutes = require("./routes/stall.routes");
 
 const allowedOrigins = [
   "http://localhost:3000", // for local dev
-  "http://frontend-production-d1aa.up.railway.app", // Railway frontend URL
+  "https://frontend-production-d1aa.up.railway.app", // Railway frontend URL
 ];
 
 const corsOptions = {
