@@ -47,7 +47,7 @@ io.on("connection", async (socket) => {
   });
 });
 
-app.get("/get-all-tables", async (req, res) => {
+app.get("/api/get-all-tables", async (req, res) => {
   try {
     const allData = await fetchAllTablesData();
     res.json(allData);
