@@ -33,7 +33,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchAllData = async () => {
             try {
-                const response = await fetch(`/get-all-tables`);
+                const response = await fetch(`/api/get-all-tables`);
                 const data = await response.json();
                 updateDashboardData(data);
             } catch (error) {
