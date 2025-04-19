@@ -14,16 +14,19 @@ const userRoutes = require("./routes/user.routes");
 const interactionRoutes = require("./routes/interaction.routes");
 const stallRoutes = require("./routes/stall.routes");
 
+const corsOptions = {
+  origin: "*",
+  methods: ["GET", "POST", "DELETE"],
+  credentials: true,
+};
+
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
+  cors: corsOptions,
 });
 
 // Routes
