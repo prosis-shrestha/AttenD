@@ -14,8 +14,26 @@ const userRoutes = require("./routes/user.routes");
 const interactionRoutes = require("./routes/interaction.routes");
 const stallRoutes = require("./routes/stall.routes");
 
+// const corsOptions = {
+//   origin: `${process.env.FRONTEND_URL}`,
+//   methods: ["GET", "POST", "DELETE"],
+//   credentials: true,
+// };
+
+const allowedOrigins = [
+  "http://localhost:3000", // for local dev
+  "http://frontend-production-d1aa.up.railway.app", // Railway frontend URL
+];
+
 const corsOptions = {
-  origin: `${process.env.FRONTEND_URL}`,
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like curl, mobile apps)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS: " + origin));
+    }
+  },
   methods: ["GET", "POST", "DELETE"],
   credentials: true,
 };
