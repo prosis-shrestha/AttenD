@@ -15,9 +15,11 @@ const AdminLogin = () => {
 
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/admin-login`, {
-                code: code
-            });
+            // const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/admin-login`, 
+            const response = await axios.post(`/api/auth/admin-login`,
+                {
+                    code: code
+                });
 
             if (response.data.success) {
                 sessionStorage.setItem('adminToken', '8888');
