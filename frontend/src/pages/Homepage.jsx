@@ -275,7 +275,7 @@ const Homepage = () => {
                                     }}
                                     className="w-full bg-white/20 hover:bg-white/30 text-white py-2 px-4 rounded"
                                 >
-                                    Go to Admin Login (Passcode: 8888)
+                                    Go to Admin Login (Passcode: {import.meta.env.VITE_ADMIN_CODE})
                                 </button>
                             </div>
                         </div>

@@ -20,24 +20,6 @@ const corsOptions = {
   credentials: true,
 };
 
-// const allowedOrigins = [
-//   "http://localhost:3000", // for local dev
-//   "https://frontend-production-d1aa.up.railway.app", // Railway frontend URL
-// ];
-
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     // Allow requests with no origin (like curl, mobile apps)
-//     if (!origin || allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS: " + origin));
-//     }
-//   },
-//   methods: ["GET", "POST", "DELETE"],
-//   credentials: true,
-// };
-
 const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());

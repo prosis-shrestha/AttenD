@@ -20,7 +20,7 @@ const login = async (req, res) => {
 const adminLogin = async (req, res) => {
   try {
     const { code } = req.body;
-    const adminCode = process.env.ADMIN_CODE || "8888";
+    const adminCode = process.env.ADMIN_CODE;
     if (code === adminCode) {
       res.json({ success: true, message: "Admin access granted" });
     } else {

@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }) => {
         if (!token || !expiry) return false;
 
         // Check if token is valid and not expired
-        return token === '8888' && Date.now() < parseInt(expiry);
+        return token === `${import.meta.env.VITE_ADMIN_CODE}` && Date.now() < parseInt(expiry);
     };
 
     if (!isAuthenticated()) {

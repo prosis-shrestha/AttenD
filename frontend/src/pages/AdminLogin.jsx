@@ -21,7 +21,7 @@ const AdminLogin = () => {
                 });
 
             if (response.data.success) {
-                sessionStorage.setItem('adminToken', '8888');
+                sessionStorage.setItem('adminToken', `${import.meta.env.VITE_ADMIN_CODE}`);
                 sessionStorage.setItem('adminTokenExpiry', Date.now() + (24 * 60 * 60 * 1000));
                 navigate('/admin-panel');
             } else {
