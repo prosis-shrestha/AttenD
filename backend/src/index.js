@@ -7,7 +7,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const initializeDatabase = require("./services/db-init.service");
 const { setupPgListener } = require("./services/pg-listener.service");
-
+const client = require("prom-client");
 // Import routes
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
@@ -29,6 +29,8 @@ const io = new Server(server, {
   cors: corsOptions,
 });
 
+const collectDefaultMetrics = client.collectDefaultMetrics;
+collectDefaultMetrics({ register: client.register });
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
@@ -48,6 +50,12 @@ io.on("connection", async (socket) => {
   socket.on("disconnect", () => {
     console.log("Client disconnected:", socket.id);
   });
+});
+
+app.get("/metrics", async (req, res) => {
+  res.setHeader("Content-Type", client.register.contentType);
+  const metrics = await client.register.metrics();
+  res.send(metrics);
 });
 
 app.get("/api/get-all-tables", async (req, res) => {

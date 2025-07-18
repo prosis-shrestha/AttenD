@@ -19,6 +19,11 @@ services:
   frontend:
     build:
       context: ./frontend
+    #   args:
+    #     VITE_API_URL: ${VITE_API_URL}
+    #     VITE_ADMIN_CODE: ${VITE_ADMIN_CODE}
+    # env_file:
+    #   - ./.env
     ports:
       - "3000:80"
     depends_on:
@@ -30,6 +35,22 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+
+  prom-server:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana-oss
+    ports:
+      - "3001:3000"
+    networks:
+      - app-network
 
 networks:
   app-network:
